@@ -16,6 +16,18 @@ function Wrapper({ children }: { children: React.ReactNode }) {
   );
 }
 
+function DeepComponentTree() {
+  return (
+    <Wrapper>
+      <Wrapper>
+        <Wrapper>
+          <InnerComponent />
+        </Wrapper>
+      </Wrapper>
+    </Wrapper>
+  );
+}
+
 function InnerComponent() {
   const { count } = React.useContext(TestContext);
   return <p>Count: {count}</p>;
@@ -45,14 +57,7 @@ export default function ContextHookDemo() {
     >
       <h2>ContextHookDemo</h2>
       <TestContext.Provider value={{ count: count }}>
-        <Wrapper>
-          <Wrapper>
-            <Wrapper>
-              <InnerComponent />
-            </Wrapper>
-          </Wrapper>
-        </Wrapper>
-
+        <DeepComponentTree />
         <Wrapper>
           <button onClick={() => setCount(count + 1)}>Increment</button>
         </Wrapper>
